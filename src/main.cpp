@@ -4,7 +4,7 @@
 
 int main() {
     MySQLConnector conn;
-    conn.initialize("tcp://127.0.0.1:3306", "admin", "pass", "test");
+    conn.initialize("tcp://127.0.0.1:3306", "root", "zheshimima", "test");
     YCSBBenchmark benchmark(conn);
     benchmark.run();
     double throughput = (double) benchmark.records_executed / (double) benchmark.millis_elapsed * 1000;

@@ -18,17 +18,25 @@ public:
     bool is_end();
     bool cleanup();
 
-    bool read_record(int key);
+    bool read_record(int key, std::vector<std::string>& results);
+    bool insert_record(int key, std::vector<std::string>& values);
 public:
 
     std::unique_ptr<sql::PreparedStatement> read_stmt;
+    std::unique_ptr<sql::PreparedStatement> insert_stmt;
     std::default_random_engine generator;
-    zipfian_int_distribution<int> distribution;
+    zipfian_int_distribution<int> zipfian_distrib;
+    unsigned int next_key = 0;
+    std::random_device rd;
+    std::mt19937 rng;
 
     unsigned int max_records = 1000;
     unsigned int max_fields = 10;
     unsigned int max_field_size = 100; // in chars
     std::string table_name = "usertable";
-    unsigned int max_query = 100000;
+    unsigned int max_query = 10000;
     unsigned int current_query = 0;
+
+    double query_proportion = 1.0;
+    double insert_proportion = 0.0;
 };
